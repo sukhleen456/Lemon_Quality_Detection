@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block body %}
+
+<section class="text-gray-600 body-font -my-8">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-col text-center w-full mb-20">
+        <h2 class="text-xs text-green-500 tracking-widest font-medium title-font mb-1"></h2>
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Lemon Quality Detection</h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">The Lemon Quality Detection System is an AI-powered solution designed to automate and enhance the process of assessing lemon quality. Utilizing computer vision techniques and deep learning models, this system analyzes visual features such as color, texture, and size to classify lemons as fresh, overripe, or defective. The project aims to streamline quality control in the agriculture and food industry, ensuring consistency and reducing manual inspection efforts.</p>
+        <br>
+        {% if status == True %}
+        <p class=""><b>Actual Lemon Image : <span class="text-danger">{{Actual_image}}</span> </b></p>
+        <p class=""><b>Prediction : <span class="text-danger">{{prediction}}</span></b></p>
+        <p class=""><b>Confidence : <span class="text-danger">{{confidence}}</span></b></p><br>
+        {% endif %}
+
+      <div class="row text-center">
+        <div class="col-md-3"></div>
+        <div class="center col-md-6">
+          <form action= {% url "prediction" %} method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="exampleInputEmail1" class="form-label">Select your Lemon image</label>
+            <input type="file" class="form-control" id="lemon" name="lemon" aria-describedby="emailHelp"><br>
+            <button type="submit" class="btn btn-success">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock body %}
