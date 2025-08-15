@@ -1,18 +1,21 @@
-# Step 1: Base image
-FROM python:3.10-slim
-
+# Step 1: Base image (use 3.11 to match scipy requirement)
+FROM python:3.11-slim
 
 # Step 2: Set work directory
 WORKDIR /app
 
-# Step 3: Install system dependencies (for ML libraries)
+# Step 3: Install system dependencies (for ML libraries and scipy build)
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
     libgl1 \
     libglib2.0-0 \
+    gfortran \
+    libatlas-base-dev \
+    liblapack-dev \
+    libblas-dev \
+    python3-dev \
  && rm -rf /var/lib/apt/lists/*
-
 
 # Step 4: Copy and install Python dependencies
 COPY requirements.txt .
